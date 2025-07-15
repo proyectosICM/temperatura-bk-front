@@ -1,0 +1,32 @@
+.item-platform {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 8px;
+  width: 180px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.item-platform-title {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.item-platform-temp {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+}
+
+.item-platform-temp span {
+  font-size: 14px;
+  color: #333;
+}
