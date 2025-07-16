@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://host:7070/api";
+const API_BASE_URL = "http://telemetriaperu.com:7079/api/v1/";
 
 // Configuración base de Axios
 const api = axios.create({
@@ -11,6 +11,7 @@ const api = axios.create({
 });
 
 // Interceptor para agregar token de autenticación
+/*
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("tp_token");
   if (token) {
@@ -18,5 +19,5 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
-
+*/
 export default api;

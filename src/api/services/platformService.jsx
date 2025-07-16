@@ -1,6 +1,6 @@
 import api from "../axiosConfig";
 
-const endpoint = "/platform";
+const endpoint = "/platforms";
 
 export const getById = async (id) => {
   try {
