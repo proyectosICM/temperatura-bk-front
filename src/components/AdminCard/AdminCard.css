@@ -1,0 +1,27 @@
+.admin-card {
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  padding: 20px;
+  width: 200px;
+  margin: 12px;
+  background-color: #ffffff;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.admin-card:hover {
+  transform: translateY(-4px);
+}
+
+.admin-card-icon {
+  margin-bottom: 12px;
+  color: #007bff;
+}
+
+.admin-card-title {
+  font-size: 18px;
+  color: #333;
+  margin: 0;
+}

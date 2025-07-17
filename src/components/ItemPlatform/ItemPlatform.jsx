@@ -2,12 +2,16 @@ import { useState } from "react";
 import { FaThermometerHalf, FaSnowflake, FaFireAlt } from "react-icons/fa";
 import "./ItemPlatform.css";
 import { useNavigate } from "react-router-dom";
+import PlatformObservationModal from "./PlatformObservationModal";
+import { useCreateObservation } from "../../api/hooks/useObservations";
+import Swal from "sweetalert2";
 
 const ItemPlatform = ({ platformId, name, temperature, threshold = 30, currentUser = "Juan Pérez" }) => {
   const navigate = useNavigate();
   const isHot = temperature > threshold;
   const [showModal, setShowModal] = useState(false);
   const [observationText, setObservationText] = useState("");
+  const createObservation = useCreateObservation();
 
   const handleClick = () => {
     setShowModal(true);
@@ -18,8 +22,48 @@ const ItemPlatform = ({ platformId, name, temperature, threshold = 30, currentUs
   };
 
   const handleViewLogs = () => {
-  navigate(`/logs-detallados/${platformId}`);
-};
+    navigate(`/logs-detallados/${platformId}`);
+  };
+
+  const handleSave = () => {
+    if (!observationText.trim()) {
+      Swal.fire({
+        icon: "warning",
+        title: "Observación vacía",
+        text: "La observación no puede estar vacía",
+      });
+      return;
+    }
+
+    const newObservation = {
+      temperature,
+      description: observationText,
+      user: { id: 1 }, // ⚠️ temporal hasta tener login
+      platform: { id: platformId },
+      company: { id: 1 }, // ⚠️ temporal hasta tener login
+    };
+
+    createObservation.mutate(newObservation, {
+      onSuccess: () => {
+        Swal.fire({
+          icon: "success",
+          title: "¡Guardado!",
+          text: "Observación guardada correctamente",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        setObservationText("");
+        setShowModal(false);
+      },
+      onError: () => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error al guardar la observación",
+        });
+      },
+    });
+  };
 
   return (
     <>
@@ -43,33 +87,14 @@ const ItemPlatform = ({ platformId, name, temperature, threshold = 30, currentUs
       </div>
 
       {showModal && (
-        <div className="platform-modal-overlay" onClick={closeModal}>
-          <div
-            className="platform-modal"
-            onClick={(e) => e.stopPropagation()} // evita cerrar al hacer click dentro
-          >
-            <h4>Registrar observación</h4>
-
-            <label className="modal-label">Usuario:</label>
-            <select className="modal-select" value={currentUser} disabled>
-              <option>{currentUser}</option>
-            </select>
-
-            <textarea
-              value={observationText}
-              onChange={(e) => setObservationText(e.target.value)}
-              placeholder="Escribe una observación..."
-              className="modal-textarea"
-            />
-
-            <button className="modal-btn" onClick={() => alert("Guardar observación")}>
-              Guardar
-            </button>
-            <button className="modal-link" onClick={handleViewLogs}>
-              Ver logs detallados
-            </button>
-          </div>
-        </div>
+        <PlatformObservationModal
+          currentUser={currentUser}
+          observationText={observationText}
+          setObservationText={setObservationText}
+          onClose={closeModal}
+          onSave={handleSave}
+          onViewLogs={handleViewLogs}
+        />
       )}
     </>
   );

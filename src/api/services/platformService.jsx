@@ -46,7 +46,7 @@ export const getPlatformByCompanyId = async (companyId) => {
 
 export const getPlatformByCompanyIdPaginated = async (companyId, page, size) => {
   try {
-    const response = await api.get(`${endpoint}/by-company-paginated/${companyId}/paginated`, {
+    const response = await api.get(`${endpoint}/by-company-paginated/${companyId}`, {
       params: { page, size },
     });
     return response.data;
