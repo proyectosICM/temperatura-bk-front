@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import "./Administration.css";
 import { CustomNavbar } from "../components/CustomNavbar";
 import AdminCard from "../components/AdminCard/AdminCard";
+import { useAuthRedirect } from "../api/hooks/useAuthRedirect";
 
 export function Administration() {
+  useAuthRedirect();
   const navigate = useNavigate();
   const role = localStorage.getItem("bk_role");
 
@@ -17,7 +19,7 @@ export function Administration() {
         <div className="admin-card-grid">
           {role === "SA" && <AdminCard title="Empresas" icon={FaBuilding} onClick={() => navigate("/admin/empresas")} />}
           <AdminCard title="Andenes" icon={FaCubes} onClick={() => navigate("/admin/andenes")} />
-          <AdminCard title="Usuarios" icon={FaUsers} onClick={() => navigate("/admin/usuarios")} />
+          {(role === "SA" || role === "ADMIN") && <AdminCard title="Usuarios" icon={FaUsers} onClick={() => navigate("/admin/usuarios")} />}
         </div>
       </div>
     </div>

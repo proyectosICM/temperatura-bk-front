@@ -6,8 +6,10 @@ import { Button, Container, Spinner } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
 import { UserTable } from "./UsersTable";
 import UserModal from "./UserModal";
+import { useAuthRedirect } from "../../../api/hooks/useAuthRedirect";
 
 export function UserCrud() {
+  useAuthRedirect();
   const companyId = localStorage.getItem("bk_companyId");
   const [page, setPage] = useState(0);
 

@@ -6,11 +6,17 @@ import PlatformObservationModal from "./PlatformObservationModal";
 import { useCreateObservation } from "../../api/hooks/useObservations";
 import Swal from "sweetalert2";
 
-const ItemPlatform = ({ platformId, name, temperature, threshold = 30, currentUser = "Juan Pérez" }) => {
+const ItemPlatform = ({ platformId, name, temperature, threshold = 30 }) => {
   const navigate = useNavigate();
   const isHot = temperature > threshold;
   const [showModal, setShowModal] = useState(false);
   const [observationText, setObservationText] = useState("");
+
+  const userId = parseInt(localStorage.getItem("bk_userId"));
+  const userName = localStorage.getItem("bk_name");
+  const companyId = parseInt(localStorage.getItem("bk_companyId"));
+  const currentUser = { id: userId, name: userName };
+
   const createObservation = useCreateObservation();
 
   const handleClick = () => {
@@ -38,9 +44,9 @@ const ItemPlatform = ({ platformId, name, temperature, threshold = 30, currentUs
     const newObservation = {
       temperature,
       description: observationText,
-      user: { id: 1 }, // ⚠️ temporal hasta tener login
+      user: { id: currentUser.id },
       platform: { id: platformId },
-      company: { id: 1 }, // ⚠️ temporal hasta tener login
+      company: { id: companyId },
     };
 
     createObservation.mutate(newObservation, {

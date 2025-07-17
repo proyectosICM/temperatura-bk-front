@@ -10,9 +10,12 @@ import { PlatformLogs } from "./pages/PlatformLogs";
 export const routes = [
   { path: "/", component: <Dashboard /> },
   { path: "/obsevaciones", component: <Observations /> },
-  { path: "/logs-detallados/:platformId", component: <PlatformLogs /> },
   { path: "/administracion", component: <Administration /> },
+
+  { path: "/logs-detallados/:platformId", component: <PlatformLogs /> },
+
   { path: "/login", component: <Login /> },
+  
   { path: "/admin/empresas", component: <CompaniesCrud /> },
   { path: "/admin/andenes", component: <PlatformsCrud /> },
   { path: "/admin/usuarios", component: <UserCrud /> },

@@ -5,19 +5,15 @@ import PlatformTemperatureChart from "../components/PlatformTemperatureChart";
 import "./Dashboard.css";
 import { useGetPlatformsByCompanyId } from "../api/hooks/usePlatform";
 import { useNavigate } from "react-router-dom";
+import { useAuthRedirect } from "../api/hooks/useAuthRedirect";
+import { MdThermostat } from "react-icons/md";
+import { AiOutlineDashboard } from "react-icons/ai";
 
 export function Dashboard() {
   const threshold = 30;
-  const navigate = useNavigate();
-
-  const token = localStorage.getItem("bk_token");
   const companyId = Number(localStorage.getItem("bk_companyId"));
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-  }, [token, navigate]);
+  useAuthRedirect();
 
   const { data: platforms, isLoading, error } = useGetPlatformsByCompanyId(companyId);
   console.log(platforms);
@@ -25,8 +21,15 @@ export function Dashboard() {
   return (
     <div className="g-background">
       <CustomNavbar />
-      <h1>Panel de Monitoreo Térmico</h1>
-      <p>Visualiza el estado actual de temperatura en cada andén.</p>
+      <h1>
+        {" "}
+        <MdThermostat style={{ marginRight: "8px" }} />
+        Panel de Monitoreo Térmico
+      </h1>
+      <p>
+        <AiOutlineDashboard style={{ marginRight: "6px" }} />
+        Visualiza el estado actual de temperatura en cada andén.
+      </p>
 
       <div className="container-items">
         {platforms &&

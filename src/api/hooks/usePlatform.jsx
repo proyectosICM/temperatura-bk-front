@@ -29,6 +29,7 @@ export const useGetPlatformsByCompanyId = (companyId) => {
     queryKey: ["platforms", "by-company", companyId],
     queryFn: () => platformService.getPlatformByCompanyId(companyId),
     enabled: !!companyId,
+    refetchInterval: 5000
   });
 };
 

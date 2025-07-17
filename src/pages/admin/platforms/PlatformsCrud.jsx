@@ -15,8 +15,10 @@ import {
 import { CustomNavbar } from "../../../components/CustomNavbar";
 import { FaPlus } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { useAuthRedirect } from "../../../api/hooks/useAuthRedirect";
 
 export function PlatformsCrud() {
+  useAuthRedirect();
   const [page, setPage] = useState(0);
   const size = 5;
   const [showModal, setShowModal] = useState(false);
@@ -41,7 +43,7 @@ export function PlatformsCrud() {
 
   const handleSavePlatform = (platformData) => {
     if (isEditMode && currentPlatform) {
-      console.log(platformData)
+      console.log(platformData);
       updatePlatform(
         { id: currentPlatform.id, ...platformData },
         {

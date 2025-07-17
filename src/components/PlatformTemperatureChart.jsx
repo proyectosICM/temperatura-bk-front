@@ -9,6 +9,37 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+const CustomTooltip = ({ active, payload, label, threshold }) => {
+  if (active && payload && payload.length) {
+    const temperature = payload[0].value;
+    const isHot = temperature > threshold;
+
+    return (
+      <div
+        style={{
+          backgroundColor: "#ffffff",
+          padding: "8px 12px",
+          border: `1px solid ${isHot ? "#e74c3c" : "#3498db"}`,
+          borderRadius: "8px",
+        }}
+      >
+        <p style={{ margin: 0, color: "#333" }}>{label}</p>
+        <p
+          style={{
+            margin: 0,
+            color: isHot ? "#e74c3c" : "#3498db",
+            fontWeight: "bold",
+          }}
+        >
+          Temperatura: {temperature}°C
+        </p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
 const PlatformTemperatureChart = ({ data, threshold }) => {
   return (
     <div
@@ -38,7 +69,7 @@ const PlatformTemperatureChart = ({ data, threshold }) => {
             height={60}
           />
           <YAxis unit="°C" />
-          <Tooltip />
+          <Tooltip content={<CustomTooltip threshold={threshold} />} />
           <Line
             type="monotone"
             dataKey="temperature"

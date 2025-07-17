@@ -1,6 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import * as observationService from "../services/observationsService";
 
+export const useGetTodayObservationCountByCompany = (companyId) => {
+  return useQuery({
+    queryKey: ["observations", "count-today", companyId],
+    queryFn: () => observationService.getTodayObservationCountByCompany(companyId),
+    enabled: !!companyId,
+  });
+};
+
 export const useGetObservationById = (id) => {
   return useQuery({
     queryKey: ["observation", id],

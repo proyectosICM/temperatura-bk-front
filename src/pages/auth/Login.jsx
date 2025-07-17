@@ -19,13 +19,12 @@ export function Login() {
       { username, password },
       {
         onSuccess: async (data) => {
-
           localStorage.setItem("bk_token", data.token);
-          console.log(data)
+          console.log(data);
           console.log("Token guardado, buscando datos del usuario...");
 
           try {
-            console.log(`${API_BASE_URL}users/by-username/${username}`)
+            console.log(`${API_BASE_URL}users/by-username/${username}`);
             const res = await axios.get(`${API_BASE_URL}/users/by-username/${username}`.replace(/([^:]\/)\/+/g, "$1"), {
               headers: {
                 Authorization: `Bearer ${data.token}`,
@@ -35,9 +34,10 @@ export function Login() {
             const user = res.data;
 
             localStorage.setItem("bk_userId", user.id);
+            localStorage.setItem("bk_name", user.name);
+            localStorage.setItem("bk_username", user.username);
             localStorage.setItem("bk_companyId", user.company?.id);
             localStorage.setItem("bk_role", user.role);
-            localStorage.setItem("bk_username", user.username);
 
             console.log("Datos del usuario guardados");
             navigate("/");

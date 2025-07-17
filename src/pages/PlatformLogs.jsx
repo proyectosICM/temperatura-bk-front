@@ -5,9 +5,11 @@ import { CustomNavbar } from "../components/CustomNavbar";
 import { useGetLogsByPlatformIdPaginated } from "../api/hooks/useTemperatureLog";
 import { formatDateTime } from "../utils/formatDate"; // 🕒 util para formatear fechas
 import "./PlatformLogs.css";
+import { useAuthRedirect } from "../api/hooks/useAuthRedirect";
 
 export function PlatformLogs() {
   const { platformId } = useParams();
+  useAuthRedirect();
   const [page, setPage] = useState(0);
   const size = 5;
 

@@ -5,12 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 export function CustomNavbar() {
   const navigation = useNavigate();
+  const role = localStorage.getItem("bk_role");
 
   const handleLogout = () => {
     //clearLocalStorage();
     localStorage.removeItem("bk_token");
-    localStorage.removeItem("bk_companyId");
     localStorage.removeItem("bk_userId");
+    localStorage.removeItem("bk_name");
+    localStorage.removeItem("bk_username");
+    localStorage.removeItem("bk_companyId");
     localStorage.removeItem("bk_role");
     navigation("/login");
   };
@@ -35,9 +38,11 @@ export function CustomNavbar() {
             <FaClipboardList style={{ marginRight: "5px" }} /> Observaciones
           </Nav.Link>
           {/* <Nav.Link onClick={() => navigation("/records-panel")}>Panel Registros</Nav.Link> */}
-          <Nav.Link onClick={() => navigation("/administracion")} style={{ borderBottom: "none", textDecoration: "none" }}>
-            <FaUserShield style={{ marginRight: "5px" }} /> Administracion
-          </Nav.Link>
+          {(role === "SA" || role === "ADMIN") && (
+            <Nav.Link onClick={() => navigation("/administracion")} style={{ borderBottom: "none", textDecoration: "none" }}>
+              <FaUserShield style={{ marginRight: "5px" }} /> Administración
+            </Nav.Link>
+          )}
         </Nav>
 
         {/* Right-aligned logout button */}

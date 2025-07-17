@@ -7,8 +7,10 @@ import { CustomNavbar } from "../../../components/CustomNavbar";
 import { CompaniesTable } from "./CompaniesTable";
 import Swal from "sweetalert2";
 import CompanyModal from "./CompanyModal";
+import { useAuthRedirect } from "../../../api/hooks/useAuthRedirect";
 
 export function CompaniesCrud() {
+  useAuthRedirect();
   const [page, setPage] = useState(0);
   const size = 5;
   const [showModal, setShowModal] = useState(false);
@@ -44,7 +46,7 @@ export function CompaniesCrud() {
           },
         }
       );
-    } else { 
+    } else {
       createCompany(
         { name },
         {
