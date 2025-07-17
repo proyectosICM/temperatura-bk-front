@@ -3,12 +3,12 @@ import { Table, Button, Spinner } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function PlatformsTable({ platforms, isLoading, onEdit, onDelete }) {
-  console.log(platforms)
+
   return (
       <Table striped bordered hover variant="dark">
       <thead>
         <tr>
-          <th>ID</th>
+          <th>ID</th> 
           <th>Nombre</th>
           <th>Empresa</th>
           <th>Acciones</th>

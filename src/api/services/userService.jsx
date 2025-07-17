@@ -8,6 +8,16 @@ export const login = async ({ username, password }) => {
   return response.data;
 };
 
+export const getRoles = async () => {
+  try {
+    const response = await api.get(`${endpoint}/roles`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching roles:", error);
+    throw error;
+  }
+};
+
 export const getUserByUsername = async (username) => {
   try {
     const response = await api.get(`${endpoint}/by-username/${username}`);

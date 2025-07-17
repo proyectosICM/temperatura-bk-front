@@ -68,6 +68,7 @@ export const createPlatform = async (platformData) => {
 
 export const updatePlatform = async (id, platformData) => {
   try {
+    console.log(id, platformData)
     const response = await api.put(`${endpoint}/${id}`, platformData);
     return response.data;
   } catch (error) {

@@ -11,13 +11,13 @@ const api = axios.create({
 });
 
 // Interceptor para agregar token de autenticación
-/*
+
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("tp_token");
+  const token = localStorage.getItem("bk_token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
-*/
+
 export default api;

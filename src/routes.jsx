@@ -1,5 +1,6 @@
 import { CompaniesCrud } from "./pages/admin/companies/CompaniesCrud";
 import { PlatformsCrud } from "./pages/admin/platforms/PlatformsCrud";
+import { UserCrud } from "./pages/admin/users/UsersCrud";
 import { Administration } from "./pages/Administration";
 import { Login } from "./pages/auth/Login";
 import { Dashboard } from "./pages/Dashboard";
@@ -14,4 +15,5 @@ export const routes = [
   { path: "/login", component: <Login /> },
   { path: "/admin/empresas", component: <CompaniesCrud /> },
   { path: "/admin/andenes", component: <PlatformsCrud /> },
+  { path: "/admin/usuarios", component: <UserCrud /> },
 ];

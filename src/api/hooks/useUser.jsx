@@ -7,6 +7,13 @@ export const useLogin = () => {
   });
 };
 
+export const useGetRoles = () => {
+  return useQuery({
+    queryKey: ["roles"],
+    queryFn: userService.getRoles,
+  });
+};
+
 export const useGetUserByUsername = (username) => {
   return useQuery({
     queryKey: ["user", "by-username", username],
@@ -68,10 +75,8 @@ export const useCreateUser = () => {
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
-    mutationFn: ({ id, userData }) =>
-      userService.updateUser(id, userData),
+    mutationFn: (userData) => userService.updateUser(userData.id, userData),
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: ["user", id] });
       queryClient.invalidateQueries({ queryKey: ["users"] });

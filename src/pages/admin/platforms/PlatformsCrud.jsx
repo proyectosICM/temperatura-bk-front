@@ -41,16 +41,17 @@ export function PlatformsCrud() {
 
   const handleSavePlatform = (platformData) => {
     if (isEditMode && currentPlatform) {
+      console.log(platformData)
       updatePlatform(
         { id: currentPlatform.id, ...platformData },
         {
           onSuccess: () => {
-            Swal.fire("Actualizado", "Empresa actualizada correctamente", "success");
+            Swal.fire("Actualizado", "Anden actualizado correctamente", "success");
             setShowModal(false);
             setCurrentPlatform(null);
           },
           onError: () => {
-            Swal.fire("Error", "No se pudo actualizar la empresa", "error");
+            Swal.fire("Error", "No se pudo actualizar el anden", "error");
           },
         }
       );
@@ -69,7 +70,7 @@ export function PlatformsCrud() {
 
   const handleDeletePlatform = (companyId) => {
     Swal.fire({
-      title: "¿Eliminar empresa?",
+      title: "¿Eliminar anden?",
       text: "Esta acción no se puede deshacer.",
       icon: "warning",
       showCancelButton: true,
@@ -81,10 +82,10 @@ export function PlatformsCrud() {
       if (result.isConfirmed) {
         deletePlatform(companyId, {
           onSuccess: () => {
-            Swal.fire("Eliminado", "La empresa ha sido eliminada.", "success");
+            Swal.fire("Eliminado", "El anden a sido eliminado", "success");
           },
           onError: () => {
-            Swal.fire("Error", "No se pudo eliminar la empresa.", "error");
+            Swal.fire("Error", "No se pudo eliminar el anden.", "error");
           },
         });
       }
@@ -97,8 +98,8 @@ export function PlatformsCrud() {
     setShowModal(true);
   };
 
-  const handleEditPlatform = (company) => {
-    setCurrentPlatform(company);
+  const handleEditPlatform = (platform) => {
+    setCurrentPlatform(platform);
     setIsEditMode(true);
     setShowModal(true);
   };
@@ -110,7 +111,7 @@ export function PlatformsCrud() {
         <div className="d-flex justify-content-between align-items-center mb-3">
           <div>
             <h1 className="text-light">Andenes</h1>
-            <p className="text-secondary">Lista de andenes registradas en el sistema.</p>
+            <p className="text-secondary">Lista de andenes registrados en el sistema.</p>
           </div>
           <Button variant="success" className="d-flex align-items-center gap-2" onClick={handleOpenCreateModal}>
             <FaPlus /> Agregar

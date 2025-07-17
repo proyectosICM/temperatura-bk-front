@@ -56,8 +56,7 @@ export const useUpdatePlatform = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, platformData }) =>
-      platformService.updatePlatform(id, platformData),
+    mutationFn: (platformData) => platformService.updatePlatform(platformData.id, platformData),
     onSuccess: (_, { id }) => {
       queryClient.invalidateQueries({ queryKey: ["platform", id] });
       queryClient.invalidateQueries({ queryKey: ["platforms"] });

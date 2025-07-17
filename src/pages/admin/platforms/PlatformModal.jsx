@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-const PlatformModal = ({ isEdit = false, initialName = "", initialSensorId = "", initialTemperature = "", companyId, onClose, onSave }) => {
+const PlatformModal = ({ isEdit = false, initialName = "", initialSensorId = "", onClose, onSave }) => {
   const [name, setName] = useState("");
   const [sensorId, setSensorId] = useState("");
-  const [temperature, setTemperature] = useState("");
-
+  const companyId = localStorage.getItem("bk_companyId");
+ 
   useEffect(() => {
     setName(initialName);
     setSensorId(initialSensorId);
-    setTemperature(initialTemperature);
-  }, [initialName, initialSensorId, initialTemperature]);
+  }, [initialName, initialSensorId]);
 
   const handleSave = () => {
-    if (name.trim() === "" || sensorId.trim() === "" || temperature === "") return;
+    if (name.trim() === "" || sensorId.trim() === "") return;
     onSave({
       name: name.trim(),
       sensorId: sensorId.trim(),
-      temperature: parseFloat(temperature),
-      companyId,
+      companyId: companyId,
     });
   };
 
@@ -31,15 +29,6 @@ const PlatformModal = ({ isEdit = false, initialName = "", initialSensorId = "",
 
         <label className="modal-label">Sensor Id:</label>
         <input type="text" className="modal-textarea" placeholder="ID del sensor" value={sensorId} onChange={(e) => setSensorId(e.target.value)} />
-
-        <label className="modal-label">Temperatura:</label>
-        <input
-          type="number"
-          className="modal-textarea"
-          placeholder="Temperatura"
-          value={temperature}
-          onChange={(e) => setTemperature(e.target.value)}
-        />
 
         <button className="modal-btn" onClick={handleSave}>
           {isEdit ? "Guardar cambios" : "Crear andén"}
