@@ -11,7 +11,7 @@ export function PlatformLogs() {
   const { platformId } = useParams();
   useAuthRedirect();
   const [page, setPage] = useState(0);
-  const size = 5; 
+  const size = 10; 
 
   const { data: logsPage, isLoading, error, isFetching } = useGetLogsByPlatformIdPaginated(platformId, page, size);
 
