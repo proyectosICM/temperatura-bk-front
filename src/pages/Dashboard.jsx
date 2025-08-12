@@ -33,7 +33,17 @@ export function Dashboard() {
 
       <div className="container-items">
         {platforms &&
-          platforms.map((p, i) => <ItemPlatform key={p.id ?? i} platformId={p.id} name={p.name} temperature={p.temperature} threshold={threshold} />)}
+          platforms.map((p, i) => (
+            <ItemPlatform
+              key={p.id ?? i}
+              platformId={p.id}
+              name={p.name}
+              temperature={p.temperature}
+              threshold={threshold}
+              minTemperature={p.minTemperature}
+              maxTemperature={p.maxTemperature}
+            />
+          ))}
       </div>
       <PlatformTemperatureChart data={platforms} threshold={threshold} />
     </div>

@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { FaThermometerHalf, FaSnowflake, FaFireAlt } from "react-icons/fa";
+import { FaThermometerHalf, FaSnowflake, FaFireAlt, FaCheckCircle } from "react-icons/fa";
 import "./ItemPlatform.css";
 import { useNavigate } from "react-router-dom";
 import PlatformObservationModal from "./PlatformObservationModal";
 import { useCreateObservation } from "../../api/hooks/useObservations";
 import Swal from "sweetalert2";
 
-const ItemPlatform = ({ platformId, name, temperature, threshold = 30 }) => {
+const ItemPlatform = ({ platformId, name, temperature, minTemperature, maxTemperature }) => {
   const navigate = useNavigate();
-  const isHot = temperature > threshold;
   const [showModal, setShowModal] = useState(false);
   const [observationText, setObservationText] = useState("");
 
@@ -19,17 +18,10 @@ const ItemPlatform = ({ platformId, name, temperature, threshold = 30 }) => {
 
   const createObservation = useCreateObservation();
 
-  const handleClick = () => {
-    setShowModal(true);
-  };
+  const handleClick = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
-  const handleViewLogs = () => {
-    navigate(`/logs-detallados/${platformId}`);
-  };
+  const handleViewLogs = () => navigate(`/logs-detallados/${platformId}`);
 
   const handleSave = () => {
     if (!observationText.trim()) {
@@ -71,25 +63,45 @@ const ItemPlatform = ({ platformId, name, temperature, threshold = 30 }) => {
     });
   };
 
+  // Determinar estado de temperatura
+  let color = "#3498db";
+  let Icon = FaThermometerHalf;
+  let statusText = "Temperatura normal";
+
+  if (temperature < minTemperature) {
+    color = "#2980b9"; // azul
+    Icon = FaSnowflake;
+    statusText = `Por debajo del mínimo (${minTemperature}°C)`;
+  } else if (temperature > maxTemperature) {
+    color = "#e74c3c"; // rojo
+    Icon = FaFireAlt;
+    statusText = `Por encima del máximo (${maxTemperature}°C)`;
+  } else {
+    color = "#27ae60"; // verde
+    Icon = FaCheckCircle;
+  }
+
   return (
     <>
       <div className="item-platform" onClick={handleClick}>
         <h3 className="item-platform-title">{name}</h3>
 
         <div className="item-platform-temp">
-          {isHot ? <FaFireAlt size={20} color="#e74c3c" /> : <FaThermometerHalf size={20} color="#3498db" />}
-
+          <Icon size={20} color={color} />
           <span
             style={{
-              color: isHot ? "#e74c3c" : "#333",
-              fontWeight: isHot ? "bold" : "normal",
+              color: color,
+              fontWeight: temperature < minTemperature || temperature > maxTemperature ? "bold" : "normal",
+              marginLeft: "6px",
             }}
           >
-            Temperatura {temperature}°C
+            {temperature}°C
           </span>
-
-          <FaSnowflake size={18} color={isHot ? "#ccc" : "#3498db"} />
         </div>
+
+        <p style={{ color, fontSize: "0.9em", marginTop: "4px" }}>
+          {statusText}
+        </p>
       </div>
 
       {showModal && (
@@ -107,3 +119,4 @@ const ItemPlatform = ({ platformId, name, temperature, threshold = 30 }) => {
 };
 
 export default ItemPlatform;
+ 
