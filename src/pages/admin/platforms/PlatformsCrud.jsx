@@ -98,7 +98,7 @@ export function PlatformsCrud() {
     setIsEditMode(false);
     setCurrentPlatform(null);
     setShowModal(true);
-  };
+  }; 
 
   const handleEditPlatform = (platform) => {
     setCurrentPlatform(platform);

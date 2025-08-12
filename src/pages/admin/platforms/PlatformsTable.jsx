@@ -3,14 +3,15 @@ import { Table, Button, Spinner } from "react-bootstrap";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function PlatformsTable({ platforms, isLoading, onEdit, onDelete }) {
-
   return (
-      <Table striped bordered hover variant="dark">
+    <Table striped bordered hover variant="dark">
       <thead>
         <tr>
-          <th>ID</th> 
+          <th>ID</th>
           <th>Nombre</th>
           <th>Empresa</th>
+          <th>Temp. Mínima</th>
+          <th>Temp. Máxima</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -20,6 +21,8 @@ export default function PlatformsTable({ platforms, isLoading, onEdit, onDelete 
             <td>{platform.id}</td>
             <td>{platform.name}</td>
             <td>{platform.company?.name}</td>
+            <td>{platform.minTemperature ?? "-"}</td>
+            <td>{platform.maxTemperature ?? "-"}</td>
             <td>
               <Button variant="outline-warning" size="sm" onClick={() => onEdit(platform)}>
                 <FaEdit /> Editar
