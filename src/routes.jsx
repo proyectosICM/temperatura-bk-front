@@ -20,3 +20,4 @@ export const routes = [
   { path: "/admin/andenes", component: <PlatformsCrud /> },
   { path: "/admin/usuarios", component: <UserCrud /> },
 ];
+ 

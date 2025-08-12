@@ -20,7 +20,7 @@ export function Observations() {
   const { data: todayCount, isLoading: loadingCount } = useGetTodayObservationCountByCompany(companyId);
 
   const handlePrevious = () => {
-    if (page > 0) setPage(page - 1);
+    if (page > 0) setPage(page - 1); 
   };
 
   const handleNext = () => {

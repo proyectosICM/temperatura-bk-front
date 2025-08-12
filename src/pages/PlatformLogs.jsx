@@ -3,7 +3,7 @@ import { Table, Spinner, Container, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { CustomNavbar } from "../components/CustomNavbar";
 import { useGetLogsByPlatformIdPaginated } from "../api/hooks/useTemperatureLog";
-import { formatDateTime } from "../utils/formatDate"; // 🕒 util para formatear fechas
+import { formatDateTime, getDateAndDayFromTimestamp } from "../utils/formatDate"; // util para formatear fechas
 import "./PlatformLogs.css";
 import { useAuthRedirect } from "../api/hooks/useAuthRedirect";
 
@@ -11,7 +11,7 @@ export function PlatformLogs() {
   const { platformId } = useParams();
   useAuthRedirect();
   const [page, setPage] = useState(0);
-  const size = 5;
+  const size = 5; 
 
   const { data: logsPage, isLoading, error, isFetching } = useGetLogsByPlatformIdPaginated(platformId, page, size);
 
@@ -54,7 +54,7 @@ export function PlatformLogs() {
                 <tbody>
                   {logsPage.content.map((log) => (
                     <tr key={log.id}>
-                      <td>{formatDateTime(log.createdAt)}</td>
+                      <td>{getDateAndDayFromTimestamp(log.createdAt)}</td>
                       <td>{log.temperature}</td>
                       <td>{log.user?.name || "Sistema (Automático)"}</td>
                       <td>{log.platform?.name || "—"}</td>
